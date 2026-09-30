@@ -1,6 +1,9 @@
 import { useEffect, useState } from "react";
 import "./App.css";
 
+const API_BASE_URL =
+  import.meta.env.VITE_API_BASE_URL || "http://127.0.0.1:8000";
+
 type ActionItem = {
   task: string;
   owner: string | null;
@@ -26,7 +29,7 @@ function App() {
 
   const loadHistory = async () => {
     try {
-      const response = await fetch("http://127.0.0.1:8000/analyses");
+      const response = await fetch(`${API_BASE_URL}/analyses`);
 
       if (!response.ok) {
         throw new Error("Failed to load analysis history");
@@ -53,7 +56,7 @@ function App() {
     setError("");
 
     try {
-      const response = await fetch("http://127.0.0.1:8000/analyze", {
+      const response = await fetch(`${API_BASE_URL}/analyze`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
